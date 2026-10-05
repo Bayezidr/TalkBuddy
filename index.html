@@ -48,9 +48,11 @@ body{overflow:hidden}button,input,textarea{font:inherit}button{border:0;cursor:p
 
 /* MODALS */
 .modal{position:fixed;inset:0;background:#1d2b4529;backdrop-filter:blur(6px);display:grid;place-items:center;padding:18px;z-index:50}.modal-card{width:min(530px,100%);max-height:90vh;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:24px;padding:24px;box-shadow:0 25px 70px #1b315026}.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}.modal-head h3{margin:0;font-size:18px}.profile-preview{display:flex;align-items:center;gap:14px;background:#f7f9fc;border:1px solid var(--line);padding:13px;border-radius:16px}.profile-preview .avatar{width:68px;height:68px}.small{font-size:11px;color:var(--muted)}.danger{background:#fff1f3;border:1px solid #ffd4da;color:#b83248;padding:12px;border-radius:12px;font-size:12px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.admin-table{width:100%;border-collapse:collapse;font-size:11px}.admin-table th,.admin-table td{padding:9px;border-bottom:1px solid var(--line);text-align:left}.badge{font-size:9px;background:#f0f3f8;color:#66758a;padding:3px 6px;border-radius:6px}
-.mobile-only{display:none}.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#172238;color:#fff;padding:10px 15px;border-radius:12px;font-size:12px;box-shadow:var(--shadow);z-index:100}
+.mobile-only{display:none}.mobile-overlay{display:none}.mobile-close{display:none}.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#172238;color:#fff;padding:10px 15px;border-radius:12px;font-size:12px;box-shadow:var(--shadow);z-index:100}
 @media(max-width:1050px){.shell{grid-template-columns:300px minmax(0,1fr)}.right{display:none}}
-@media(max-width:680px){.shell{grid-template-columns:1fr}.sidebar{display:none}.sidebar.mobile-show{display:flex;position:fixed;inset:0 auto 0 0;width:min(88%,330px);z-index:40;box-shadow:0 20px 60px #17223833}.mobile-only{display:grid}.messages{padding:18px 11px}.bubble{max-width:85%}.auth-card{padding:28px}.chat-head{padding:0 11px}}
+@media(max-width:680px){
+.shell{grid-template-columns:1fr}.sidebar{display:none}.sidebar.mobile-show{display:flex;position:fixed;inset:0 auto 0 0;width:min(88%,330px);z-index:60;box-shadow:0 20px 60px #17223833}.mobile-only{display:grid}.mobile-close{display:grid}.mobile-overlay.show{display:block;position:fixed;inset:0;background:#17223845;backdrop-filter:blur(2px);z-index:55}.messages{padding:18px 11px}.bubble{max-width:85%}.auth-card{padding:28px}.chat-head{padding:0 11px}}
+
 </style>
 </head>
 <body>
@@ -71,9 +73,10 @@ body{overflow:hidden}button,input,textarea{font:inherit}button{border:0;cursor:p
 </div>
 
 <div id="app" class="hidden">
+  <div id="mobileOverlay" class="mobile-overlay"></div>
   <div class="shell">
     <aside id="sidebar" class="sidebar">
-      <div class="sidebar-top"><div class="brand"><span class="brand-mark">💬</span>TalkBuddy</div><button class="icon-btn" id="themeBtn" title="Light theme">☀️</button></div>
+      <div class="sidebar-top"><div class="brand"><span class="brand-mark">💬</span>TalkBuddy</div><div style="display:flex;gap:6px"><button class="icon-btn mobile-close" id="closeSidebar" title="Close">✕</button><button class="icon-btn" id="themeBtn" title="Light theme">☀️</button></div></div>
       <div class="profile-mini" id="meRow"><div id="meAvatar" class="avatar">TB</div><div class="info"><div id="meName" class="name">Loading…</div><div id="meId" class="sub">TB-XXXXXXXX</div></div><span style="color:#a0aaba">›</span></div>
       <div class="search-wrap"><span class="search-icon">⌕</span><input id="userSearch" class="input" placeholder="Search TalkBuddy ID…"></div>
       <div id="searchResults" class="chats"></div>
@@ -293,31 +296,52 @@ async function searchUsers(term){
   }catch(e){$("searchResults").innerHTML='<div class="empty">Search failed. Check your connection.</div>';}
 }
 function renderSearchResult(p){
-  $("searchResults").innerHTML=`<div class="chat-item" data-uid="${p.uid}">${avatarHTML(p,"avatar")}<div class="chat-meta"><div class="chat-title">${esc(p.name||p.username||"TalkBuddy")}</div><div class="last">${esc(p.talkId)} · Tap to chat</div></div></div>`;
-  $("searchResults").firstElementChild.onclick=()=>openChat(p);
+  const wrap=document.createElement("div");
+  wrap.className="chat-item"; wrap.dataset.uid=p.uid;
+  wrap.innerHTML=`${avatarHTML(p,"avatar")}<div class="meta"><div class="chat-title">${esc(p.name||p.username||"TalkBuddy")}</div><div class="last">${esc(p.talkId)} · Tap to chat</div></div><span style="color:#9aa6b8;font-size:18px">›</span>`;
+  wrap.addEventListener("click",()=>openChat(p));
+  $("searchResults").replaceChildren(wrap);
 }
 function setupSearch(){
   let t; $("userSearch").oninput=e=>{clearTimeout(t);t=setTimeout(()=>searchUsers(e.target.value.trim()),250);};
 }
 async function openChat(other){
-  const id=chatIdFor(currentUser.uid,other.uid); activeChat={id,other};
-  $("headAvatar").outerHTML=avatarHTML(other,"avatar");$("headAvatar").id="headAvatar";
-  $("headTitle").textContent=other.name||other.username||"TalkBuddy";
-  $("headStatus").innerHTML='<span class="dot"></span><span id="onlineText">checking status…</span>';
-  $("messageInput").disabled=false;$("sendBtn").disabled=false;
-  if(unsubMessages)unsubMessages();
-  const cRef=doc(db,"chats",id);
-  const cSnap=await getDoc(cRef);
-  if(!cSnap.exists()) await setDoc(cRef,{members:[currentUser.uid,other.uid],createdAt:serverTimestamp(),lastMessage:"",lastMessageAt:serverTimestamp()});
-  const mq=query(collection(db,"chats",id,"messages"),orderBy("createdAt","asc"));
-  unsubMessages=onSnapshot(mq,snap=>{
-    $("messages").innerHTML="";
-    if(snap.empty){$("messages").innerHTML='<div class="empty" style="margin:auto">Start the conversation 👋</div>';return;}
-    snap.forEach(d=>renderMessage(d.data()));
-    $("messages").scrollTop=$("messages").scrollHeight;
-  });
-  if(unsubPresence)unsubPresence();
-  unsubPresence=onValue(ref(rtdb,`presence/${other.uid}`),s=>{const x=s.val();$("onlineText").textContent=x?.online?"Online":"Offline";});
+  if(!currentUser || !other?.uid) return;
+  try{
+    const id=chatIdFor(currentUser.uid,other.uid); activeChat={id,other};
+    const headAvatar=$("headAvatar");
+    if(headAvatar){ headAvatar.outerHTML=avatarHTML(other,"avatar").replace('class="avatar"','class="avatar" id="headAvatar"'); }
+    $("headTitle").textContent=other.name||other.username||"TalkBuddy";
+    $("headStatus").innerHTML='<span class="dot"></span><span id="onlineText">Checking status…</span>';
+    $("messageInput").disabled=false;$("sendBtn").disabled=false;
+    if(unsubMessages)unsubMessages();
+    const cRef=doc(db,"chats",id);
+    const cSnap=await getDoc(cRef);
+    if(!cSnap.exists()) await setDoc(cRef,{members:[currentUser.uid,other.uid],createdAt:serverTimestamp(),lastMessage:"",lastMessageAt:serverTimestamp()});
+    // Avoid requiring a composite/indexed query for messages.
+    const mq=query(collection(db,"chats",id,"messages"),limit(200));
+    unsubMessages=onSnapshot(mq,snap=>{
+      const docs=[...snap.docs].sort((a,b)=>(a.data().createdAt?.toMillis?.()||0)-(b.data().createdAt?.toMillis?.()||0));
+      $("messages").innerHTML="";
+      if(!docs.length){$("messages").innerHTML='<div class="empty" style="margin:auto">Start the conversation 👋</div>';return;}
+      docs.forEach(d=>renderMessage(d.data()));
+      $("messages").scrollTop=$("messages").scrollHeight;
+    },err=>{
+      console.error("Message listener:",err);
+      $("messages").innerHTML='<div class="empty">Could not load messages.<br>Check your Firestore rules.</div>';
+    });
+    if(unsubPresence)unsubPresence();
+    unsubPresence=onValue(ref(rtdb,`presence/${other.uid}`),s=>{const x=s.val();const el=$("onlineText");if(el)el.textContent=x?.online?"Online":"Offline";});
+    // On phones, selecting a user closes the drawer automatically.
+    closeMobileSidebar();
+  }catch(err){
+    console.error("Open chat failed:",err);
+    toast(firebaseMsg(err));
+  }
+}
+function closeMobileSidebar(){
+  $("sidebar").classList.remove("mobile-show");
+  $("mobileOverlay").classList.remove("show");
 }
 function renderMessage(m){
   const el=document.createElement("div");el.className="bubble "+(m.senderId===currentUser.uid?"mine":"");
@@ -376,7 +400,7 @@ async function loadChatList(){
     const p=await getDoc(doc(db,"users",otherId)); if(!p.exists())continue;
     const u={uid:p.id,...p.data()};
     const el=document.createElement("div");el.className="chat-item";
-    el.innerHTML=`${avatarHTML(u,"avatar")}<div class="chat-meta"><div class="chat-title">${esc(u.name||u.username||"TalkBuddy")}</div><div class="last">${esc(x.lastMessage||"No messages yet")}</div></div>`;
+    el.innerHTML=`${avatarHTML(u,"avatar")}<div class="meta"><div class="chat-title">${esc(u.name||u.username||"TalkBuddy")}</div><div class="last">${esc(x.lastMessage||"No messages yet")}</div></div>`;
     el.onclick=()=>openChat(u);$("chatList").appendChild(el);
    }
    if(!docs.length)$("chatList").innerHTML='<div class="empty">No conversations yet.<br>Search a TalkBuddy ID above.</div>';
@@ -432,7 +456,12 @@ $("logoutBtn").onclick=async()=>{
   await signOut(auth);
 };
 document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>$(b.dataset.close).classList.add("hidden"));
-$("mobileMenu").onclick=()=>$("sidebar").classList.toggle("mobile-show");
+$("mobileMenu").onclick=()=>{
+  $("sidebar").classList.add("mobile-show");
+  $("mobileOverlay").classList.add("show");
+};
+$("closeSidebar").onclick=closeMobileSidebar;
+$("mobileOverlay").onclick=closeMobileSidebar;
 $("themeBtn").onclick=()=>toast("TalkBuddy is currently using the professional Light Theme.");
 $("adminBtn").onclick=()=>openAdmin();
 
