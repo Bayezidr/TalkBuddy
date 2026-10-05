@@ -136,7 +136,7 @@ let selectedPhotoData=null, mediaRecorder=null, audioChunks=[], recording=false;
 // Optional: put your Firebase Auth UID here after creating your own account.
 // This only controls the front-end admin button; real admin authorization should
 // be enforced with secure rules/custom claims in production.
-const ADMIN_UID = "";
+const ADMIN_UID = "k9Q6mIWF0OPBNONO7kqpbosNggj2";
 
 function esc(v=""){return v.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));}
 function initials(name="TalkBuddy"){return name.trim().split(/\s+/).slice(0,2).map(x=>x[0]).join("").toUpperCase()||"TB";}
