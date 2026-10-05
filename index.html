@@ -6,19 +6,24 @@
 <meta name="theme-color" content="#0b1220">
 <title>TalkBuddy</title>
 <style>
-:root{--bg:#07101f;--panel:#0d1728;--panel2:#111e33;--card:#16243b;--line:#22324d;--text:#edf4ff;--muted:#91a3bd;--brand:#5b8cff;--brand2:#7c5cff;--ok:#36d399;--danger:#ff5d73;--bubble:#182942;--white:#fff;--shadow:0 20px 60px #0006}
-*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}button,input,textarea{font:inherit}button{cursor:pointer;border:0}.hidden{display:none!important}
-#app{height:100%;display:flex;overflow:hidden}.auth{min-height:100%;display:grid;place-items:center;padding:22px;background:radial-gradient(circle at 20% 10%,#284f9b55,transparent 35%),radial-gradient(circle at 90% 90%,#6e43d544,transparent 35%),var(--bg)}
-.auth-card{width:min(430px,100%);background:#0d1728ee;border:1px solid var(--line);border-radius:28px;padding:32px;box-shadow:var(--shadow);backdrop-filter:blur(18px)}
-.logo{display:flex;align-items:center;gap:12px;font-weight:800;font-size:24px}.logo-mark{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--brand),var(--brand2));display:grid;place-items:center;color:white;font-size:22px}
-.auth h1{font-size:30px;margin:26px 0 7px}.auth p{color:var(--muted);line-height:1.5}.field{margin:15px 0}.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:7px}.input{width:100%;background:#0a1322;border:1px solid var(--line);color:var(--text);padding:13px 14px;border-radius:13px;outline:0}.input:focus{border-color:var(--brand);box-shadow:0 0 0 3px #5b8cff20}
-.primary{width:100%;padding:13px 16px;border-radius:13px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:white;font-weight:750}.ghost{background:transparent;color:var(--text);padding:9px;border-radius:10px}.ghost:hover{background:#ffffff0b}.auth-switch{text-align:center;margin-top:18px;color:var(--muted);font-size:14px}.link{color:#8eb0ff;background:none;padding:0}
-.error{background:#ff5d7315;color:#ff9aaa;border:1px solid #ff5d7330;padding:10px 12px;border-radius:12px;margin:12px 0;font-size:13px}
-.shell{display:grid;grid-template-columns:330px 1fr 310px;width:100%;height:100%}.sidebar{background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;min-width:0}.topbar{padding:17px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand-sm{font-weight:850;font-size:20px}.me-row{padding:15px 18px;display:flex;gap:11px;align-items:center;border-bottom:1px solid var(--line);cursor:pointer}.avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#35599d,#7551ad);display:grid;place-items:center;font-weight:800;overflow:hidden;flex:none}.avatar img{width:100%;height:100%;object-fit:cover}.me-info{min-width:0}.me-name{font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.me-id{font-size:11px;color:var(--muted);margin-top:2px}.search{margin:13px 14px}.search input{background:#101d31}.chats{overflow:auto;flex:1}.chat-item{padding:12px 16px;display:flex;gap:11px;align-items:center;border-bottom:1px solid #ffffff06;cursor:pointer}.chat-item:hover,.chat-item.active{background:#ffffff08}.chat-meta{min-width:0;flex:1}.chat-title{font-weight:700}.last{color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:4px}.empty{padding:30px 20px;color:var(--muted);text-align:center;line-height:1.6}
-.main{display:flex;flex-direction:column;min-width:0;background:linear-gradient(180deg,#0b1423,#07101f)}.chat-head{height:73px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:12px 18px}.chat-head .info{flex:1;min-width:0}.chat-head .title{font-weight:800}.status{font-size:12px;color:var(--muted);margin-top:3px}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-right:5px}.messages{flex:1;overflow:auto;padding:22px 6%;display:flex;flex-direction:column;gap:8px}.day{text-align:center;color:var(--muted);font-size:11px;margin:8px}.bubble{max-width:min(72%,620px);padding:10px 13px;border-radius:17px;background:var(--bubble);align-self:flex-start;box-shadow:0 5px 20px #0002}.bubble.mine{align-self:flex-end;background:linear-gradient(135deg,#315cae,#4d48a7)}.bubble small{display:block;color:#b8c5d9aa;font-size:9px;text-align:right;margin-top:4px}.composer{padding:12px 16px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:end;background:#0a1321}.composer textarea{resize:none;max-height:120px;min-height:44px;flex:1}.icon-btn{width:42px;height:42px;border-radius:12px;background:#15243a;color:var(--text);display:grid;place-items:center;font-size:18px}.send{background:linear-gradient(135deg,var(--brand),var(--brand2))}.side{border-left:1px solid var(--line);background:var(--panel);padding:20px;overflow:auto}.side h3{margin:4px 0 15px}.profile-card{text-align:center;padding:10px 0 20px}.profile-card .avatar{width:88px;height:88px;margin:0 auto 12px;font-size:28px}.uid{background:#101e32;border:1px solid var(--line);padding:9px;border-radius:11px;font-size:12px;color:#a8bbd5;margin-top:10px}.section{border-top:1px solid var(--line);padding:18px 0}.section-title{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}.admin{background:#0a1321;border:1px solid #334b6f;padding:14px;border-radius:15px}.admin button{width:100%;margin-top:8px}
-.modal{position:fixed;inset:0;background:#0009;display:grid;place-items:center;padding:18px;z-index:20}.modal-card{width:min(520px,100%);max-height:90vh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow)}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.modal-head h3{margin:0}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.profile-preview{display:flex;gap:15px;align-items:center;margin-bottom:16px}.profile-preview .avatar{width:70px;height:70px}.small{font-size:12px;color:var(--muted)}.danger{color:#ff9aaa;background:#ff5d7315;border:1px solid #ff5d7330;padding:10px 12px;border-radius:11px}
-.admin-table{width:100%;border-collapse:collapse;font-size:12px}.admin-table th,.admin-table td{padding:9px;border-bottom:1px solid var(--line);text-align:left}.badge{display:inline-block;padding:4px 7px;border-radius:8px;background:#ffffff0c;color:#b9c8dd;font-size:10px}
+:root{
+ --bg:#f4f7fb;--surface:#fff;--surface2:#f8faff;--line:#e4e9f2;--text:#172033;
+ --muted:#718096;--brand:#3867ff;--brand2:#7657ff;--ok:#20b26b;--danger:#e5485d;
+ --bubble:#edf2ff;--bubbleMine:#3867ff;--shadow:0 16px 45px rgba(35,50,85,.10);
+}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,textarea{font:inherit}button{cursor:pointer;border:0}.hidden{display:none!important}
+.auth{min-height:100%;display:grid;place-items:center;padding:24px;background:linear-gradient(135deg,#eef4ff,#f8f5ff 55%,#f4f8ff)}
+.auth-card{width:min(430px,100%);background:#fff;border:1px solid var(--line);border-radius:28px;padding:34px;box-shadow:var(--shadow)}
+.logo{display:flex;align-items:center;gap:12px;font-weight:850;font-size:25px}.logo-mark{width:46px;height:46px;border-radius:15px;background:linear-gradient(135deg,var(--brand),var(--brand2));display:grid;place-items:center;color:#fff;box-shadow:0 10px 24px #3867ff30}
+.auth h1{font-size:30px;margin:26px 0 7px}.auth p{color:var(--muted);line-height:1.55}.field{margin:15px 0}.field label{display:block;font-size:13px;font-weight:650;color:#65738b;margin-bottom:7px}.input{width:100%;background:#fff;border:1px solid #dce3ef;color:var(--text);padding:13px 14px;border-radius:13px;outline:0;transition:.18s}.input:focus{border-color:#6c8cff;box-shadow:0 0 0 4px #3867ff12}
+.primary{width:100%;padding:13px 16px;border-radius:13px;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-weight:750;box-shadow:0 8px 18px #3867ff25}.primary:disabled{opacity:.6;cursor:not-allowed}.ghost{background:transparent;color:var(--text);padding:9px;border-radius:10px}.ghost:hover{background:#eef2f8}.auth-switch{text-align:center;margin-top:18px;color:var(--muted);font-size:14px}.link{color:var(--brand);background:none;padding:0;font-weight:700}.error{background:#fff1f3;color:#b92e43;border:1px solid #ffd3da;padding:10px 12px;border-radius:12px;margin:12px 0;font-size:13px}.success{background:#edfff6;color:#13864f;border:1px solid #c8f4dc;padding:10px 12px;border-radius:12px;margin:12px 0;font-size:13px}
+.shell{display:grid;grid-template-columns:330px 1fr 310px;width:100%;height:100%;background:var(--surface)}.sidebar{background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;min-width:0}.topbar{padding:16px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}.brand-sm{font-weight:850;font-size:20px;color:#1c2a44}.me-row{padding:15px 18px;display:flex;gap:11px;align-items:center;border-bottom:1px solid var(--line);cursor:pointer}.avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#5e82ff,#8b67e9);display:grid;place-items:center;font-weight:800;overflow:hidden;flex:none;color:#fff}.avatar img{width:100%;height:100%;object-fit:cover}.me-info{min-width:0}.me-name{font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.me-id{font-size:11px;color:var(--muted);margin-top:2px}.search{margin:13px 14px}.search input{background:#f7f9fc}.chats{overflow:auto;flex:1}.chat-item{padding:12px 16px;display:flex;gap:11px;align-items:center;border-bottom:1px solid #f0f2f6;cursor:pointer}.chat-item:hover,.chat-item.active{background:#f5f7fc}.chat-meta{min-width:0;flex:1}.chat-title{font-weight:700}.last{color:var(--muted);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:4px}.empty{padding:30px 20px;color:var(--muted);text-align:center;line-height:1.6}
+.main{display:flex;flex-direction:column;min-width:0;background:#f9fbfe}.chat-head{height:73px;border-bottom:1px solid var(--line);background:#fff;display:flex;align-items:center;gap:12px;padding:12px 18px}.chat-head .info{flex:1;min-width:0}.chat-head .title{font-weight:800}.status{font-size:12px;color:var(--muted);margin-top:3px}.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-right:5px}.messages{flex:1;overflow:auto;padding:22px 6%;display:flex;flex-direction:column;gap:8px;background:radial-gradient(circle at 15% 15%,#edf3ff 0,transparent 22%),#f8faff}.bubble{max-width:min(72%,620px);padding:10px 13px;border-radius:17px;background:#fff;border:1px solid #e7ebf3;align-self:flex-start;box-shadow:0 4px 14px #263a5d08}.bubble.mine{align-self:flex-end;background:var(--bubbleMine);color:#fff;border-color:transparent}.bubble small{display:block;color:#7b8aa0;font-size:9px;text-align:right;margin-top:4px}.bubble.mine small{color:#dbe4ff}.composer{padding:12px 16px;border-top:1px solid var(--line);display:flex;gap:8px;align-items:end;background:#fff}.composer textarea{resize:none;max-height:120px;min-height:44px;flex:1}.icon-btn{width:42px;height:42px;border-radius:12px;background:#f0f3f8;color:#27344b;display:grid;place-items:center;font-size:18px}.icon-btn:hover{background:#e8edf5}.send{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}.side{border-left:1px solid var(--line);background:#fff;padding:20px;overflow:auto}.side h3{margin:4px 0 15px}.profile-card{text-align:center;padding:10px 0 20px}.profile-card .avatar{width:88px;height:88px;margin:0 auto 12px;font-size:28px}.uid{background:#f5f7fb;border:1px solid var(--line);padding:9px;border-radius:11px;font-size:12px;color:#66758d;margin-top:10px;word-break:break-all}.section{border-top:1px solid var(--line);padding:18px 0}.section-title{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}.admin{background:#f6f8ff;border:1px solid #dce5ff;padding:14px;border-radius:15px}.admin button{width:100%;margin-top:8px}
+.modal{position:fixed;inset:0;background:#1a274033;backdrop-filter:blur(5px);display:grid;place-items:center;padding:18px;z-index:20}.modal-card{width:min(520px,100%);max-height:90vh;overflow:auto;background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow)}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.modal-head h3{margin:0}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.profile-preview{display:flex;gap:15px;align-items:center;margin-bottom:16px}.profile-preview .avatar{width:70px;height:70px}.small{font-size:12px;color:var(--muted)}.danger{color:#b92e43;background:#fff1f3;border:1px solid #ffd3da;padding:10px 12px;border-radius:11px}.admin-table{width:100%;border-collapse:collapse;font-size:12px}.admin-table th,.admin-table td{padding:9px;border-bottom:1px solid var(--line);text-align:left}.badge{display:inline-block;padding:4px 7px;border-radius:8px;background:#f0f3f8;color:#65738b;font-size:10px}
 .mobile-only{display:none}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#172238;color:#fff;padding:11px 15px;border-radius:12px;box-shadow:var(--shadow);z-index:50;font-size:13px}
+.spinner{width:18px;height:18px;border:2px solid #ffffff66;border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:inline-block;vertical-align:middle}@keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:1050px){.shell{grid-template-columns:300px 1fr}.side{display:none}}
 @media(max-width:680px){.shell{grid-template-columns:1fr}.sidebar{display:none}.sidebar.mobile-show{display:flex;position:absolute;z-index:10;width:88%;height:100%;box-shadow:var(--shadow)}.mobile-only{display:grid}.messages{padding:18px 12px}.bubble{max-width:84%}.auth-card{padding:24px}.chat-head{padding:10px 12px}}
 </style>
@@ -43,7 +48,7 @@
 <div id="app" class="hidden">
   <div class="shell">
     <aside id="sidebar" class="sidebar">
-      <div class="topbar"><div class="brand-sm">TalkBuddy</div><button class="ghost" id="settingsBtn" title="Settings">⚙️</button></div>
+      <div class="topbar"><div class="brand-sm">TalkBuddy</div><button class="ghost" id="themeBtn" title="Light theme">☀️</button></div>
       <div class="me-row" id="meRow"><div id="meAvatar" class="avatar">TB</div><div class="me-info"><div id="meName" class="me-name">Loading…</div><div id="meId" class="me-id">TB-XXXXXXXX</div></div></div>
       <div class="search"><input id="userSearch" class="input" placeholder="Search TalkBuddy ID…"></div>
       <div id="searchResults" class="chats"></div>
@@ -123,7 +128,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+const auth = getAuth(app);\nawait setPersistence(auth, browserLocalPersistence).catch(console.warn);
 const db = getFirestore(app);
 const rtdb = getDatabase(app);
 if(await isSupported().catch(()=>false)) getAnalytics(app);
@@ -140,9 +145,11 @@ const ADMIN_UID = "k9Q6mIWF0OPBNONO7kqpbosNggj2";
 
 function esc(v=""){return v.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));}
 function initials(name="TalkBuddy"){return name.trim().split(/\s+/).slice(0,2).map(x=>x[0]).join("").toUpperCase()||"TB";}
-function showError(msg){$("authError").textContent=msg;$("authError").classList.remove("hidden");}
+function toast(msg){const t=document.createElement("div");t.className="toast";t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2400);}\nfunction showError(msg){$("authError").textContent=msg;$("authError").classList.remove("hidden");}
 function hideError(){$("authError").classList.add("hidden");}
-function avatarHTML(p, cls="avatar"){return p?.photo ? `<div class="${cls}"><img src="${p.photo}" alt=""></div>` : `<div class="${cls}">${esc(initials(p?.name||p?.username||"TB"))}</div>`;}
+function avatarHTML(p, cls="avatar"){
+  return p?.photo ? `<div class="${cls}"><img src="${esc(p.photo)}" alt=""></div>` : `<div class="${cls}">${esc(initials(p?.name||p?.username||"TB"))}</div>`;
+}
 function fmtTime(ts){if(!ts)return "";const d=ts.toDate?ts.toDate():new Date(ts);return d.toLocaleTimeString([], {hour:"2-digit",minute:"2-digit"});}
 function chatIdFor(a,b){return [a,b].sort().join("_");}
 
@@ -155,10 +162,14 @@ function setAuthMode(){
   $("switchMode").textContent=signupMode?"Log in":"Create one"; hideError();
 }
 $("switchMode").onclick=()=>{signupMode=!signupMode;setAuthMode();};
+let authBusy=false;
 $("authForm").onsubmit=async e=>{
-  e.preventDefault(); hideError();
+  e.preventDefault(); if(authBusy)return; authBusy=true; hideError();
+  const btn=$("authSubmit"), old=btn.textContent; btn.disabled=true; btn.innerHTML='<span class="spinner"></span> Please wait…';
   const email=$("email").value.trim(), password=$("password").value, name=$("nameInput").value.trim();
   try{
+    if(!email)throw new Error("Please enter your email.");
+    if(password.length<6)throw new Error("Password must be at least 6 characters.");
     if(signupMode){
       if(!name) throw new Error("Please enter your name.");
       const cred=await createUserWithEmailAndPassword(auth,email,password);
@@ -167,8 +178,13 @@ $("authForm").onsubmit=async e=>{
       await setDoc(doc(db,"users",cred.user.uid),profile);
       await setDoc(doc(db,"userIds",talkId),{uid:cred.user.uid,name,talkId});
       await updateAuthProfile(cred.user,{displayName:name});
-    }else await signInWithEmailAndPassword(auth,email,password);
-  }catch(err){showError(firebaseMsg(err));}
+      toast("Account created successfully.");
+    }else{
+      await signInWithEmailAndPassword(auth,email,password);
+      toast("Welcome back.");
+    }
+  }catch(err){console.error(err);showError(firebaseMsg(err));}
+  finally{authBusy=false;btn.disabled=false;btn.textContent=old;}
 };
 function firebaseMsg(e){return ({
  "auth/invalid-credential":"Incorrect email or password.",
@@ -186,29 +202,43 @@ async function createUniqueTalkId(){
 }
 
 onAuthStateChanged(auth, async user=>{
-  if(!user){currentUser=null; $("authView").classList.remove("hidden"); $("app").classList.add("hidden"); return;}
+  if(!user){
+    currentUser=null; myProfile=null;
+    $("authView").classList.remove("hidden"); $("app").classList.add("hidden");
+    return;
+  }
   currentUser=user;
   try{
-    const snap=await getDoc(doc(db,"users",user.uid));
+    let snap=await getDoc(doc(db,"users",user.uid));
     if(!snap.exists()){
       const talkId=await createUniqueTalkId();
-      myProfile={uid:user.uid,talkId,name:user.displayName||"TalkBuddy",username:"",bio:"",photo:"",email:user.email||"",createdAt:serverTimestamp(),banned:false};
-      await setDoc(doc(db,"users",user.uid),myProfile);
-      await setDoc(doc(db,"userIds",talkId),{uid:user.uid,name:myProfile.name,talkId});
-    }else myProfile={uid:user.uid,...snap.data()};
+      const profile={uid:user.uid,talkId,name:user.displayName||user.email?.split("@")[0]||"TalkBuddy",username:"",bio:"",photo:"",email:user.email||"",createdAt:serverTimestamp(),lastSeen:serverTimestamp(),banned:false};
+      await setDoc(doc(db,"users",user.uid),profile);
+      await setDoc(doc(db,"userIds",talkId),{uid:user.uid,name:profile.name,talkId});
+      snap=await getDoc(doc(db,"users",user.uid));
+    }
+    myProfile={uid:user.uid,...snap.data()};
     if(myProfile.banned){await signOut(auth);showError("This account has been restricted by an administrator.");return;}
-    $("authView").classList.add("hidden");$("app").classList.remove("hidden");renderMe();setPresence(true);loadChatList();setupSearch();
-  }catch(e){console.error(e);showError("Could not load your TalkBuddy profile.");}
+    $("authView").classList.add("hidden"); $("app").classList.remove("hidden");
+    renderMe(); setPresence(true); loadChatList();
+    $("userSearch").value=""; $("searchResults").innerHTML=""; $("chatList").classList.remove("hidden");
+  }catch(e){
+    console.error("Profile load error:",e);
+    $("authView").classList.remove("hidden"); $("app").classList.add("hidden");
+    showError("Login succeeded, but your profile could not be loaded. Check Firestore Rules and try again.");
+    await signOut(auth);
+  }
 });
 
+function setAvatar(el,p){
+  if(!el)return;
+  el.innerHTML=p?.photo?`<img src="${esc(p.photo)}" alt="">`:esc(initials(p?.name||p?.username||"TB"));
+}
 function renderMe(){
-  $("meAvatar").outerHTML=avatarHTML(myProfile,"avatar"); $("meAvatar")?.setAttribute("id","meAvatar");
-  $("meName").textContent=myProfile.name||myProfile.username||"TalkBuddy";
+  setAvatar($("meAvatar"),myProfile); $("meName").textContent=myProfile.name||myProfile.username||"TalkBuddy";
   $("meId").textContent=myProfile.talkId||"—";
-  $("sideAvatar").outerHTML=avatarHTML(myProfile,"avatar"); $("sideAvatar")?.setAttribute("id","sideAvatar");
-  $("sideName").textContent=myProfile.name||"TalkBuddy";
-  $("sideBio").textContent=myProfile.bio||"Available to chat";
-  $("sideUid").textContent="Your ID: "+(myProfile.talkId||"—");
+  setAvatar($("sideAvatar"),myProfile); $("sideName").textContent=myProfile.name||"TalkBuddy";
+  $("sideBio").textContent=myProfile.bio||"Available to chat"; $("sideUid").textContent="Your ID: "+(myProfile.talkId||"—");
 }
 async function setPresence(online){
   if(!currentUser)return;
@@ -301,40 +331,76 @@ $("voiceBtn").onclick=async()=>{
 
 async function loadChatList(){
  if(unsubChatList)unsubChatList();
- const q=query(collection(db,"chats"),where("members","array-contains",currentUser.uid),orderBy("lastMessageAt","desc"),limit(30));
  try{
+  const q=query(collection(db,"chats"),where("members","array-contains",currentUser.uid),limit(50));
   unsubChatList=onSnapshot(q,async snap=>{
+   const docs=[...snap.docs].sort((a,b)=>{
+     const aa=a.data().lastMessageAt?.toMillis?.()||0, bb=b.data().lastMessageAt?.toMillis?.()||0; return bb-aa;
+   });
    $("chatList").innerHTML="";
-   for(const d of snap.docs){
-    const x=d.data(), otherId=(x.members||[]).find(id=>id!==currentUser.uid);if(!otherId)continue;
-    const p=await getDoc(doc(db,"users",otherId));if(!p.exists())continue;const u={uid:p.id,...p.data()};
-    const el=document.createElement("div");el.className="chat-item";el.innerHTML=`${avatarHTML(u,"avatar")}<div class="chat-meta"><div class="chat-title">${esc(u.name||u.username||"TalkBuddy")}</div><div class="last">${esc(x.lastMessage||"No messages yet")}</div></div>`;
+   for(const d of docs){
+    const x=d.data(), otherId=(x.members||[]).find(id=>id!==currentUser.uid); if(!otherId)continue;
+    const p=await getDoc(doc(db,"users",otherId)); if(!p.exists())continue;
+    const u={uid:p.id,...p.data()};
+    const el=document.createElement("div");el.className="chat-item";
+    el.innerHTML=`${avatarHTML(u,"avatar")}<div class="chat-meta"><div class="chat-title">${esc(u.name||u.username||"TalkBuddy")}</div><div class="last">${esc(x.lastMessage||"No messages yet")}</div></div>`;
     el.onclick=()=>openChat(u);$("chatList").appendChild(el);
    }
-   if(!snap.size)$("chatList").innerHTML='<div class="empty">No conversations yet.<br>Search a TalkBuddy ID above.</div>';
-  });
- }catch(e){console.warn("Chat list needs an index if Firebase asks for one:",e);}
+   if(!docs.length)$("chatList").innerHTML='<div class="empty">No conversations yet.<br>Search a TalkBuddy ID above.</div>';
+  },err=>{console.error(err);$("chatList").innerHTML='<div class="empty">Could not load conversations. Check Firestore Rules.</div>';});
+ }catch(e){console.error(e);}
 }
 
 $("meRow").onclick=$("editProfileBtn").onclick=()=>openProfile();
 function openProfile(){
- $("profileName").value=myProfile.name||"";$("profileUsername").value=myProfile.username||"";$("profileBio").value=myProfile.bio||"";$("profilePhoto").value="";
- $("profileAvatarPreview").outerHTML=avatarHTML(myProfile,"avatar");$("profileAvatarPreview").id="profileAvatarPreview";
- $("profileModal").classList.remove("hidden");
+  $("profileName").value=myProfile?.name||"";
+  $("profileUsername").value=myProfile?.username||"";
+  $("profileBio").value=myProfile?.bio||"";
+  $("profilePhoto").value="";
+  selectedPhotoData=null;
+  setAvatar($("profileAvatarPreview"),myProfile);
+  $("profileModal").classList.remove("hidden");
 }
-$("profilePhoto").onchange=async e=>{const f=e.target.files[0];if(f){if(f.size>2e6){alert("Photo must be under 2MB.");e.target.value="";return;}const data=await compressImage(f);$("profileAvatarPreview").innerHTML=`<img src="${data}">`;selectedPhotoData=data;}};
+$("profilePhoto").onchange=async e=>{
+  const f=e.target.files?.[0]; if(!f)return;
+  if(f.size>2*1024*1024){alert("Please choose an image under 2 MB.");e.target.value="";return;}
+  try{selectedPhotoData=await compressImage(f);$("profileAvatarPreview").innerHTML=`<img src="${esc(selectedPhotoData)}" alt="">`;}
+  catch(err){alert("Could not read this image.");}
+};
 $("saveProfile").onclick=async()=>{
- const name=$("profileName").value.trim();if(!name){alert("Name is required.");return;}
- const username=$("profileUsername").value.trim().replace(/[^a-zA-Z0-9_.]/g,"").slice(0,25);
- const update={name,username,bio:$("profileBio").value.trim(),updatedAt:serverTimestamp()};if(selectedPhotoData)update.photo=selectedPhotoData;
- await updateDoc(doc(db,"users",currentUser.uid),update);
- if(username)await setDoc(doc(db,"userIds",myProfile.talkId),{uid:currentUser.uid,name,talkId:myProfile.talkId,username},{merge:true});
- await updateAuthProfile(currentUser,{displayName:name});myProfile={...myProfile,...update};renderMe();$("profileModal").classList.add("hidden");selectedPhotoData=null;
+  const btn=$("saveProfile"); if(btn.disabled)return;
+  const name=$("profileName").value.trim();
+  const username=$("profileUsername").value.trim().replace(/[^a-zA-Z0-9_.]/g,"").slice(0,25);
+  const bio=$("profileBio").value.trim();
+  if(!name){alert("Name is required.");return;}
+  btn.disabled=true;btn.textContent="Saving…";
+  try{
+    // Check username uniqueness without overwriting another user's lookup.
+    if(username){
+      const oldUsername=myProfile.username||"";
+      if(username.toLowerCase()!==oldUsername.toLowerCase()){
+        const uq=await getDocs(query(collection(db,"users"),where("username","==",username),limit(1)));
+        if(!uq.empty && uq.docs[0].id!==currentUser.uid) throw new Error("That username is already in use.");
+      }
+    }
+    const update={name,username,bio,updatedAt:serverTimestamp()};
+    if(selectedPhotoData)update.photo=selectedPhotoData;
+    await updateDoc(doc(db,"users",currentUser.uid),update);
+    await setDoc(doc(db,"userIds",myProfile.talkId),{uid:currentUser.uid,name,talkId:myProfile.talkId,username},{merge:true});
+    await updateAuthProfile(currentUser,{displayName:name});
+    myProfile={...myProfile,name,username,bio,...(selectedPhotoData?{photo:selectedPhotoData}:{})};
+    renderMe(); $("profileModal").classList.add("hidden"); selectedPhotoData=null; toast("Profile updated.");
+  }catch(err){console.error(err);alert(firebaseMsg(err));}
+  finally{btn.disabled=false;btn.textContent="Save changes";}
 };
 
-$("logoutBtn").onclick=async()=>{await setPresence(false);await signOut(auth);};
+$("logoutBtn").onclick=async()=>{
+  try{await setPresence(false);}catch(e){}
+  await signOut(auth);
+};
 document.querySelectorAll("[data-close]").forEach(b=>b.onclick=()=>$(b.dataset.close).classList.add("hidden"));
 $("mobileMenu").onclick=()=>$("sidebar").classList.toggle("mobile-show");
+$("themeBtn").onclick=()=>{document.documentElement.classList.toggle("soft");$("themeBtn").textContent=document.documentElement.classList.contains("soft")?"🌤️":"☀️";};
 $("adminBtn").onclick=()=>openAdmin();
 
 async function openAdmin(){
